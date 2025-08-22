@@ -16,7 +16,7 @@
     #btn-cerradas { background:#264653; color: white;}
     .hidden { display:none; }
     section { padding:20px; }
-    .card { border:1px solid #ddd; padding:10px; margin:10px 0; border-radius:4px; position:relative; }
+    .card { border:3px solid #010101; padding:10px; margin:5px 0; border-radius:4px; position:relative; }
     .card.working { background:#e0f7fa; }
     .card button { margin:5px 5px 0 0; }
     .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); }
@@ -321,9 +321,11 @@
     .contenedor-fila {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
       align-items: flex-start;
       margin: 20px;
+      
+      
     }
 
     .campo {
@@ -524,8 +526,24 @@
       overflow-x: hidden;
     }
 
+    @keyframes correr {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    @keyframes caerEstrella {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(300px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
     .marquesina-container {
-      width: 100%;
+      width: 90%;
       overflow: hidden;
       white-space: nowrap;
       background: #f0f0f0;
@@ -542,7 +560,20 @@
       font-size: 80px;
       font-weight: bold;
       color: #333;
+      position: relative;
+      z-index: 1;
     }
+
+    /* 🌟 Estrellas */
+    .estrella {
+      position: absolute;
+      top: -50px;
+      font-size: 30px;
+      animation: caerEstrella 3s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
 
     @keyframes correr {
       0% {
@@ -563,7 +594,29 @@
       font-size: 50px;
     }
 
+    .label {
+      color: black;
+      font-weight: bold;
+    }
 
+    .valor {
+      color: blue;
+    }
+    
+    .label2 {
+      color: black;
+      font-weight: bold;
+      font-size:28px;
+    }
+
+    .valor2 {
+      color: blue;
+      font-size:28px;
+    }
+
+    html, body {
+      overflow-x: hidden;
+    }
 
 
   </style>
@@ -588,17 +641,17 @@
   
   <div class="sticky-header">
     
-    <button id="cambiar-modo" style="position: absolute; top: 10px; right: 500px; background: #06d410; color: white; padding: 26px 12px; border: none; border-radius: 4px;">
+    <button id="cambiar-modo" style="position: absolute; top: 10px; right: 500px; background: #06d410; color: white; padding: 46px 26px; border: none; border-radius: 4px;">
       Cambiar modo
     </button><br><br><br><br>
 
     <!-- 🔓 Botón para cerrar sesión -->
-    <button id="logout-btn" onclick="logout()" style="position: absolute; top: 10px; right: 700px; background: #a90707; color: white;display: block;  padding: 26px 12px;">Cerrar Sesión</button><br><br><br><br>
+    <button id="logout-btn" onclick="logout()" style="position: absolute; top: 10px; right: 700px; background: #e50101c3; color: white;display: block;  padding: 46px 26px;">Cerrar Sesión</button><br><br><br><br>
 
-    <h1 style="color: rgb(43, 6, 229); flex-basis: 100%; margin: 0 0 10px 0; font-size: 44px;">🍽️ APLICACION PARA TOMAR ORDENES</h1>
+    <!--<h1 style="color: rgb(43, 6, 229); flex-basis: 100%; margin: 0 0 10px 0; font-size: 44px;">🍽️ APLICACION PARA TOMAR ORDENES</h1>-->
 
     <!--New lines para contador de ordenes-->
-    <p1 id="contador-en-cocina" style="color:  rgb(43, 6, 229); font-size: 36px; margin-bottom: 30px;">
+    <p1 id="contador-en-cocina" style="color:  rgb(43, 6, 229); font-size: 50px; margin-bottom: 30px;">
       👨‍🍳 Cantidad de Ordenes En cocina: <span id="numero-en-cocina">0</span>
       
     </p1>
@@ -606,32 +659,32 @@
     <div class="contenedor-fila">
       <div class="campo">
         <label for="nombreClienteGlobal">Cliente:</label>
-        <input type="text" id="nombreClienteGlobal" placeholder="Cliente">
-      </div>
-      <div class="campo">
+        <input type="text" id="nombreClienteGlobal" placeholder="Cliente" style="width: 200px; font-size: 30px;"><br>
+
         <label for="numeroMesaGlobal">Mesa:</label>
-        <input type="text" id="numeroMesaGlobal" placeholder="#mesa">
+        <input type="text" id="numeroMesaGlobal" placeholder="#mesa"style="width: 200px; font-size: 30px;">
       </div>
+      
       <div class="campo">
         <label for="numeroOrdenGlobal">Orden:</label>
-        <input type="text" id="numeroOrdenGlobal" placeholder="#orden">
-      </div>
-      <div class="campo">
+        <input type="text" id="numeroOrdenGlobal" placeholder="#orden"style="width: 200px; font-size: 30px;"><br>
+
         <label for="nombreMeseroGlobal">Mesero:</label>
-        <input type="text" id="nombreMeseroGlobal" placeholder="Mesero">
+        <input type="text" id="nombreMeseroGlobal" placeholder="Mesero"style="width: 200px; font-size: 30px;">
+      </div>
+      
+      <div class="campo">
+        <label for="passMesa">MeseroID:</label>
+        <input type="text" id="passMesa" value="M02" style=" padding: 59px 26px; font-size: 30px;"readonly><br>
       </div>
       <div class="campo">
-        <label for="passMesa">Pass:</label>
-        <input type="text" id="passMesa" value="M02" readonly>
-      </div>
-      <div class="campo">
-        <button class="boton-generar" onclick="generarNumeroOrden()">Generar#: 🎲</button>
+        <button class="boton-generar" onclick="generarNumeroOrden()" style=" padding: 60px 30px; font-size: 20px;">Generar#: 🎲</button>
       </div>
     </div>
 
     <div class="marquesina-container">
       <div class="marquesina-text" id="texto-marquesina">
-        🌟 Bienvenido a la Aplicación de Tomar Ordenes— ¡Disfruta tu Nueva Experiencia!
+        🌟 Hola Juan Listo Para Tomar Ordenes ¡Disfruta tu Nueva Experiencia!
       </div>
     </div>
     
@@ -648,22 +701,25 @@
   </div> 
    
   
-  <div style="display: flex; gap: 20px; left: 100px; height: 70px; position: relative; top: 25px;">
+  <div style="display: flex; gap: 20px; left: 40px; width: 1100px; height: 120px; position: relative; top: 1px;">
     <button id="mostrar-header-btn" onclick="mostrarHeader()" style="
       background-color: #06d410;
       color: white;
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
-      padding: 15px 30px;
+      padding: 20px 180px;
       border: none;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin: 5px 20px;
+      ;
     ">
       🏠 Mostrar Página Principal
     </button>
   </div>
+  
   
   <!-- Content below to simulate scrolling -->
   <div style="height: 5px;">
@@ -1356,7 +1412,7 @@
         console.error("Error cargando desde Firestore:", error);
       });
     }
-
+    
 
     function switchSection(index) {
       const mensajes = [
@@ -1373,14 +1429,14 @@
         "#264653"  // Cerradas - fondo oscuro
       ];
 
-      const colorTexto = [ "white", "black", "black", "white" ];
+      const colorTexto = [ "white", "blue", "purple", "white" ];
 
       secciones.forEach((sec, i) => sec.classList.toggle("hidden", i !== index));
       const mensajeEl = $("seccion-mensaje");
       mensajeEl.textContent = mensajes[index];
       mensajeEl.style.backgroundColor = colores[index];
       mensajeEl.style.color = colorTexto[index];  // 👈 cambia el color según la sección
-      mensajeEl.style.fontSize = "22px";
+      mensajeEl.style.fontSize = "32px";
       mensajeEl.style.padding = "12px 24px";
       mensajeEl.style.borderRadius = "12px";
       mensajeEl.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
@@ -1403,52 +1459,66 @@
         document.querySelector(`.columna-${num}`).innerHTML = "";
       });
 
-      // 🔧 Asignación de familia a columna
       const familiasPorColumna = {
         "Desayunos": 1,
         "Tacos": 1,
         "Sopes": 1,
         "Burritos": 1,
         "Bebidas": 1,
-        "Anotojitos": 1,
+        "Antojitos": 1,
         "Chilaquiles": 2,
         "Platillos": 2,
         "Caldos": 2,
         "Tortas": 2,
         "Tortas Cubanas": 2,
         "Cemitas": 2,
-        // Agrega más como necesites
       };
 
-      // Detectar si el dispositivo es táctil
       const esTactil = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-      // Recorrer productos y asignar según familia
+      // Agrupar productos por familia
+      const productosPorFamilia = {};
       productos.forEach(prod => {
-        const colNum = familiasPorColumna[prod.familia] || 1; // por defecto columna 1
+        if (!productosPorFamilia[prod.familia]) {
+          productosPorFamilia[prod.familia] = [];
+        }
+        productosPorFamilia[prod.familia].push(prod);
+      });
+
+      // Crear encabezados por familia
+      Object.keys(productosPorFamilia).forEach(familia => {
+        const colNum = familiasPorColumna[familia] || 1;
         const columna = document.querySelector(`.columna-${colNum}`);
 
-        // Si es la primera vez que aparece esta familia en esta columna, agregar encabezado
-        if (!columna.querySelector(`h3[data-fam="${prod.familia}"]`)) {
-          const header = document.createElement("h3");
-          header.dataset.fam = prod.familia;
-          header.textContent = prod.familia;
-          columna.appendChild(header);
-        }
+        const header = document.createElement("h3");
+        header.dataset.fam = familia;
+        header.textContent = familia;
+        header.style.cursor = "pointer";
+        columna.appendChild(header);
 
-        const pEl = document.createElement("p");
-        pEl.textContent = `${prod.nombre} - $${prod.precio.toFixed(2)}`;
+        const container = document.createElement("div");
+        container.classList.add("productos-container");
+        container.style.display = "none"; // Oculto por defecto
+        columna.appendChild(container);
 
-        // Compatibilidad con táctil y mouse
-        if (esTactil) {
-          pEl.addEventListener('dblclick', () => openModal(prod));//touchstart
-        } else {
-          pEl.addEventListener('dblclick', () => openModal(prod));
-        }
+        productosPorFamilia[familia].forEach(prod => {
+          const pEl = document.createElement("p");
+          pEl.textContent = `${prod.nombre} - $${prod.precio.toFixed(2)}`;
+          if (esTactil) {
+            pEl.addEventListener('dblclick', () => openModal(prod));
+          } else {
+            pEl.addEventListener('dblclick', () => openModal(prod));
+          }
+          container.appendChild(pEl);
+        });
 
-        columna.appendChild(pEl);
+        // Mostrar/ocultar productos al hacer clic en el encabezado
+        header.addEventListener("click", () => {
+          container.style.display = container.style.display === "none" ? "block" : "none";
+        });
       });
     }
+
 
     
 
@@ -1588,25 +1658,25 @@
       // Encabezado con Input Pass
       const headerActions = document.createElement("div");
       headerActions.innerHTML = `
-        <div style="margin: 10px 0; display: flex; gap: 10px; align-items: center;">
+        <div style="margin: 15px 0px; display: gap: 20px; align-items: center;">
           <input type="text" id="passTerminal" value="${passTerminal}" readonly
-            style="padding: 30px 15px; font-size: 18px; width: 80px; border: 2px solid #ccc; border-radius: 8px; background-color: #f5f5f5;" />
+            style="padding: 42px 20px; font-size: 18px; width: 35px; border: 2px solid #ccc; border-radius: 8px; background-color: #f5f5f5;" />
 
           <input type="text" id="filtroOrdenInput" placeholder="🔎 Número de orden..." value="${filtroLimpio}"
-            style="padding: 30px 15px; font-size: 18px; width: 150px; border: 2px solid #ccc; border-radius: 8px;" />
+            style="padding: 42px 20px; font-size: 18px; width: 60px; border: 2px solid #ccc; border-radius: 8px;" />
 
           <button onclick="filtrarPorOrden()" 
-            style="padding: 30px 20px; font-size: 18px; background-color: #4285F4; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            style="padding: 42px 15px; font-size: 18px; width: 130px; background-color: #4285F4; color: white; border: none; border-radius: 8px; cursor: pointer;">
             🔍 Buscar
           </button>
 
           <button onclick="renderTomadas()" 
-            style="padding: 30px 20px; font-size: 18px; background-color: #34A853; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            style="padding: 42px 10px; font-size: 18px; width: 240px; background-color: #34A853; color: white; border: none; border-radius: 8px; cursor: pointer;">
             📋 Mostrar todas
           </button>
 
           <button onclick="aplicarDatosGlobalesAFiltradas()" 
-            style="padding: 30px 20px; font-size: 18px; background-color: #FBBC05; color: black; border: none; border-radius: 8px; cursor: pointer;">
+            style="padding: 42px 10px; font-size: 18px; width: 220px; background-color: #FBBC05; color: black; border: none; border-radius: 8px; cursor: pointer;">
             📝 Aplicar encabezado
           </button>
         </div>
@@ -1626,11 +1696,17 @@
           const card = document.createElement("div");
           card.className = "card";
           card.innerHTML = `
-            <div class="cantidad-producto"><strong>Orden: ${orden.orden} - Mesero: ${orden.mesero}</strong></div>
+            <div class="cantidad-producto">
+              <strong>
+                <span class="label">#:</span> <span class="valor">${orden.orden}</span> -
+                <span class="label">Mesero:</span> <span class="valor">${orden.mesero}</span> -
+                <span class="label">Mesa:</span> <span class="valor">${orden.mesa}</span> -
+                <span class="label">Cliente:</span> <span class="valor">${orden.cliente}</span>
+              </strong>
+            </div>
 
-            <!--<div class="cantidad-producto"><strong>Mesero: ${orden.mesero}</strong></div>-->
 
-            <div class="mesa-cliente"><strong>Mesa: ${orden.mesa}</strong> Cliente: ${orden.cliente}</div>
+           
 
             <div style="display: inline-block; background-color: purple; color: white; padding: 10px 12px; border-radius: 6px; margin: 0; font-size: 30px;"><strong>Qty: [ ${orden.cantidad || 1} ] ${orden.producto}</strong></div><br>
 
@@ -1641,7 +1717,7 @@
                 </span>`).join("")}
             </div><br>
 
-            <div style="margin-top:10px; background:#fef3c7; padding:10px 12px; border-radius:6px; color:#92400e; font-size:28px;">
+            <div style="margin-top:12px; background:#fef3c7; padding:10px 12px; border-radius:6px; color:#92400e; font-size:28px;">
               <h1 style="margin:0; font-size:28px;"><strong>Notas: <br> ${orden.nota}</strong></div><br>
 
             <button class="edit">✏️ Editar</button>
@@ -1710,6 +1786,8 @@
             saveData();
             renderTomadas(filtro);
             form.orden.value = orden.orden;
+            
+            
           };
 
           card.onclick = () => {
@@ -1731,7 +1809,8 @@
 
       enCocina.forEach((orden, i) => {
         const startTime = (orden.start instanceof Date) ? orden.start : new Date(orden.start);
-        const elapsed = Math.floor((new Date() - startTime) / 1000);
+        const elapsedSeconds = Math.floor((new Date() - startTime) / 1000);
+        const elapsedMinutes = Math.floor(elapsedSeconds / 60);
         const card = document.createElement("div");
 
         // 🔁 Asegurar estado inicial
@@ -1756,10 +1835,21 @@
 
 
         card.innerHTML = `
-          <h1 style="margin:0; font-size:28px;">
-            <strong>Orden: ${orden.orden || "—"} - Mesero: ${orden.mesero || "—"}</strong><br>
-          </h1>
-         
+
+          <strong>
+            <span class="label2">#:</span> <span class="valor2">${orden.orden}</span> 
+            <span class="label2">Mesero:</span> <span class="valor2">${orden.mesero}</span> 
+            <span class="label2">Mesa:</span> <span class="valor2">${orden.mesa}</span> 
+            <span class="label2">Cliente:</span> <span class="valor2">${orden.cliente}</span>
+          </strong><br><br>
+          
+          <strong>
+            <span class="label2">Hora:</span> <span class="valor2">${startTime.toLocaleTimeString()}</span> 
+            <span class="label2">Minutos:</span> <span class="valor2">${elapsedMinutes}</span>
+             
+          </strong><br><br>
+
+        
 
           <h1 style="display: inline-block; background-color: purple; color: white; padding: 10px 12px; border-radius: 6px; margin: 0;  font-size: 35px;">
               ${orden.cantidad || 1} ${orden.producto}
@@ -1770,32 +1860,11 @@
             <div style="font-size:16px;">${opcionesHTML || "—"}</div>
           </div>
           
-          ${notaHTML}
+          ${notaHTML}        
+          
 
           
-          <div>
-            <span style="font-size: 28px; font-weight: bold;">Hora Recivida:</span>
-            <span style="font-size: 25px;">${startTime.toLocaleTimeString()}</span>
-          </div>
-
-          <!-- Tiempo -->
-          <div style="display: flex; justify-content: space-between; width: 14%;">
-            <span style="font-size: 28px; font-weight: bold;">Tiempo Transcurrido: </span>
-            <span style="font-size: 25px;">${elapsed}s</span>
-          </div>
-
-          <!-- Mesa y Cliente -->
-          <div style="display: flex; justify-content: space-between; align-items: center; width: 35%; max-width: 600px;">
-            <div style="display: flex; align-items: center; gap: 2px;">
-              <span style="font-size: 28px; font-weight: bold;">Mesa:</span>
-              <span style="font-size: 25px;">${orden.mesa}</span>
-            </div>
-
-            <div style="display: flex; align-items: center; gap: 2px;">
-              <span style="font-size: 28px; font-weight: bold;">Cliente:</span>
-              <span style="font-size: 25px;">${orden.cliente || "—"}</span>
-            </div>
-          </div>
+        </div>
        
 
           
@@ -2035,7 +2104,7 @@
           doc.document.write(`<p>
             Qty: ${c.cantidad} - ${c.producto} <br>
             Subtotal: $${subtotal.toFixed(2)} — Tax (9.5%): $${tax.toFixed(2)} — Total: $${totalConTax.toFixed(2)}<br>
-            Mesa ${c.mesa} — Cliente: ${c.cliente} — Fecha: ${new Date(c.fin).toLocaleString()}<br>
+            Fecha: ${new Date(c.fin).toLocaleString()}<br>
             
           </p><hr>`);
         });
@@ -2436,6 +2505,48 @@
         ? "Activar Texto Animado"
         : "Desactivar Texto Animado";
     }
+
+    function lanzarEstrellas() {
+      const container = document.querySelector(".marquesina-container");
+
+      setInterval(() => {
+        const estrella = document.createElement("div");
+        estrella.className = "estrella";
+        estrella.textContent = "💎 🪩";
+
+        // Posición horizontal aleatoria
+        estrella.style.left = Math.random() * container.offsetWidth + "px";
+
+        // Duración aleatoria
+        estrella.style.animationDuration = (2 + Math.random() * 2) + "s";
+
+        container.appendChild(estrella);
+
+        // Eliminar después de la animación
+        setTimeout(() => {
+          estrella.remove();
+        }, 4000);
+      }, 300); // Cada 300ms aparece una estrella
+    }
+
+    lanzarEstrellas();
+
+    /*
+    Emojis que puedes usar para efectos visuales
+    Categoría	Emojis sugeridos	Ideal para...
+    ✨ Estrellas y magia	⭐ ✨ 🌟 💫 🪄	Fantasía, celebraciones
+    ❤️ Amor y ternura	❤️ 💖 💘 💝 💗	Romántico, afectivo
+    🎉 Fiesta y alegría	🎉 🎊 🪅 🎈 🥳	Eventos, cumpleaños, festejos
+    🌸 Naturaleza	🌸 🌼 🍃 🍂 🍁	Primavera, otoño, relajación
+    🐾 Animales	🐶 🐱 🐰 🐥 🐾	Infantil, divertido
+    🔥 Elementos	🔥 💧 🌪️ 🌈 ⚡	Acción, energía, clima
+    💎 Objetos brillantes	💎 🪩 🧿 🧸 🪙	Lujo, juguetón, místico
+    🍬 Dulces y comida	🍭 🍬 🍫 🍩 🍪	Temas dulces, infantiles
+    🧠 Creatividad	🧠 🪐 🎨 🧵 🧩	Arte, ciencia, imaginación
+    */
+
   </script>
+
+  
 
 </body></html>
